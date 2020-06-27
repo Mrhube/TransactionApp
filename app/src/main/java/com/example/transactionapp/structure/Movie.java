@@ -1,0 +1,24 @@
+package com.example.transactionapp.structure;
+
+class Movie {
+    String id;
+    String title;
+    int year;
+    Production production;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public Production getProduction() {
+        return production;
+    }
+};
