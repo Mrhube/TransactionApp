@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.transactionapp.R;
 import com.example.transactionapp.structure.Transaction;
+import com.example.transactionapp.ui.TransactionTable;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,21 +33,24 @@ import java.util.List;
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
-    private TableLayout table;
-    private List<Transaction> data;
+    private TransactionTable table;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        textView.setText("Loading...");
 
-        TableLayout table = root.findViewById(R.id.table_dashboard);
-        table.addView(new HeaderRow(getContext()));
+        final TextView textView = root.findViewById(R.id.text_dashboard);
+        ScrollView scrollView = root.findViewById(R.id.scroll_view);
+
+        textView.setText("Loading...");
+        TableLayout header = root.findViewById(R.id.table_header);
+        TransactionTable table = new TransactionTable(getContext(), textView);
+        scrollView.addView(table);
+        header.addView(new HeaderRow(getContext()));
         this.table = table;
 
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
-        String url ="http://192.168.1.68:8080/go";
+        String url ="http://192.168.1.82:8080/go";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -70,19 +75,11 @@ public class DashboardFragment extends Fragment {
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
         return root;
     }
 
     public void setData(List<Transaction> data) {
-        this.data = data;
-        updateTable();
+        table.setData(data);
     }
 
-    private void updateTable() {
-        for (int i = 0; i < data.size(); i++) {
-            Transaction row = data.get(i);
-            table.addView(new DataRow(getContext(), i, row.getDate(), row.getAmount(), row.getCategory()));
-        }
-    }
 }

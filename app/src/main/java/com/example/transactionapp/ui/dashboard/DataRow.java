@@ -2,13 +2,12 @@ package com.example.transactionapp.ui.dashboard;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.View;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 public class DataRow extends TableRow {
 
-    int id;
+    public int id;
     Boolean expanded = false;
 
     public DataRow(Context context, int id, String date, String amount, String category) {
@@ -28,26 +27,16 @@ public class DataRow extends TableRow {
             view.setText(text[i]);
             this.addView(view);
         }
-
-        this.setClickable(true);
-        this.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                expanded = !expanded;
-                update();
-            }
-        });
-
     }
 
-    private void update() {
+    public void toggle() {
+        this.expanded = !expanded;
         this.setBackgroundColor(Color.parseColor(getColor()));
     }
 
-   private String getColor() {
+    private String getColor() {
         if (expanded) return "#FFFF77";
         else if (id % 2 == 1) return "#FFFFFF";
         else return "#DAE8FC";
-   }
-
+    }
 }
