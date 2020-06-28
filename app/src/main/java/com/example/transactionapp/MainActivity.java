@@ -1,6 +1,10 @@
 package com.example.transactionapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -28,16 +32,20 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-/*
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(GsonConverterFactory.create())
-                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-/*
-        HttpClient client = new DefaultHttpClient();
-        client.get("http://192.168.1.68:8080/go", new TextHttpResponseHandler() );
-*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(this, SettingsActivity.class);
+        startActivity(myIntent);
+        return super.onOptionsItemSelected(item);
     }
 
 }
