@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.transactionapp.R;
+import com.example.transactionapp.Settings;
 import com.example.transactionapp.structure.Transaction;
 import com.example.transactionapp.ui.TransactionTable;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -50,10 +51,12 @@ public class DashboardFragment extends Fragment {
         this.table = table;
 
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
-        String url ="http://192.168.1.82:8080/go";
+        String url = Settings.getURL(getContext());
+        int port = Settings.getPort(getContext());
+        String fullURL = url + ":" + port + "/go"; //"http://192.168.1.82:8080/go";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, fullURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
