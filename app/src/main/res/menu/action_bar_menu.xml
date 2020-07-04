@@ -17,6 +17,13 @@
         android:title="Delete" />
 
     <item
+        android:id="@+id/action_sync"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="Sync" />
+
+    <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings_24dp"
         android:orderInCategory="100"
