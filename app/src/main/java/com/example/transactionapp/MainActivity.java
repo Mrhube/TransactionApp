@@ -2,13 +2,24 @@ package com.example.transactionapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
 
+import com.example.transactionapp.ui.TransactionTable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -42,8 +53,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent myIntent = new Intent(this, SettingsActivity.class);
-        startActivity(myIntent);
+        if (item.getTitle().equals("Settings")) {
+            // Open Settings activity
+            Intent myIntent = new Intent(this, SettingsActivity.class);
+            startActivity(myIntent);
+        } else if (item.getTitle().equals("Add")) {
+            // Open New Entry activity
+            Intent myIntent = new Intent(getApplicationContext(), NewEntryActivity.class);
+            startActivity(myIntent);
+        } else if (item.getTitle().equals("Delete")) {
+            // Delete selected row
+            TransactionTable table = findViewById(R.id.new_entry_table);
+            table.deleteRow();
+        }
         return super.onOptionsItemSelected(item);
     }
 

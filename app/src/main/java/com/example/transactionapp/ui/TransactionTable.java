@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.example.transactionapp.FileReadWrite;
+import com.example.transactionapp.JSONConverter;
 import com.example.transactionapp.structure.Transaction;
 import com.example.transactionapp.ui.dashboard.DataRow;
 
@@ -30,6 +32,8 @@ public class TransactionTable extends TableLayout {
     }
 
     private void buildRows() {
+        this.removeAllViews();
+        rows.clear();
         for (int i = 0; i < data.size(); i++) {
             Transaction trn = data.get(i);
             final DataRow row = new DataRow(getContext(), i, trn.getDate(), trn.getAmount(), trn.getCategory());
@@ -62,6 +66,19 @@ public class TransactionTable extends TableLayout {
             rows.get(idx).toggle();
             selection = -1;
             textView.setText("");
+        }
+    }
+
+    public void deleteRow() {
+        if (selection == -1) {
+            return;
+        } else {
+            Context ctx = getContext();
+            List<Transaction> data = JSONConverter.JSONToTransactionList(FileReadWrite.read(ctx));
+            data.remove(selection);
+            FileReadWrite.write(ctx, JSONConverter.TransactionToJSON(data));
+            setData(data);
+            selection = -1;
         }
     }
 
