@@ -1,8 +1,8 @@
 package com.example.transactionapp.ui.dashboard;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -10,9 +10,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.android.volley.Request;
@@ -39,6 +37,10 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        // Rebuild the action bar menu and hide buttons
+        setHasOptionsMenu(true);
+        getActivity().invalidateOptionsMenu();
 
         final TextView textView = root.findViewById(R.id.text_dashboard);
         ScrollView scrollView = root.findViewById(R.id.scroll_view);
@@ -83,6 +85,12 @@ public class DashboardFragment extends Fragment {
 
     public void setData(List<Transaction> data) {
         table.setData(data);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_delete).setVisible(false);
+        menu.findItem(R.id.action_add).setVisible(false);
     }
 
 }
