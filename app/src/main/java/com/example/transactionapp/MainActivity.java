@@ -1,5 +1,6 @@
 package com.example.transactionapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +14,18 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.transactionapp.structure.Transaction;
 import com.example.transactionapp.ui.TransactionTable;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,6 +35,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,8 +80,55 @@ public class MainActivity extends AppCompatActivity {
             // Delete selected row
             TransactionTable table = findViewById(R.id.new_entry_table);
             table.deleteRow();
+        } else if (item.getTitle().equals("Sync")) {
+            // Send new entries to database
+            syncWithDatabase();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void syncWithDatabase() {
+        final Context ctx = getApplicationContext();
+        final String json = FileReadWrite.read(ctx);
+        if (json.equals("")) {
+            return;
+        } else {
+            RequestQueue queue = Volley.newRequestQueue(ctx);
+            String url = Settings.getURL(ctx);
+            int port = Settings.getPort(ctx);
+            String fullURL = url + ":" + port + "/submit";
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, fullURL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // TODO: add logging here
+                            FileReadWrite.write(ctx, "");
+                            TransactionTable table = findViewById(R.id.new_entry_table);
+                            table.setData(new ArrayList<Transaction>());
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // TODO: add logging here
+                        }
+                    }) {
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=utf-8";
+                        }
+                        @Override
+                        public byte[] getBody() {
+                            try {
+                                return json.getBytes("utf-8");
+                            } catch (UnsupportedEncodingException uee) {
+                                return null;
+                            }
+                        }
+                    };
+
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
+        }
     }
 
 }
