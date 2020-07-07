@@ -2,7 +2,7 @@
     <string name="app_name">TransactionApp</string>
     <string name="title_home">New Entries</string>
     <string name="title_dashboard">Database</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Log</string>
     <string name="title_activity_new_entry">NewEntryActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
