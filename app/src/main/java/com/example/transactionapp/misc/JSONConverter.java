@@ -1,4 +1,4 @@
-package com.example.transactionapp;
+package com.example.transactionapp.misc;
 
 import com.example.transactionapp.structure.Transaction;
 import com.fasterxml.jackson.core.type.TypeReference;

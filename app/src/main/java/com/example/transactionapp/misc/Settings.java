@@ -1,4 +1,4 @@
-package com.example.transactionapp;
+package com.example.transactionapp.misc;
 
 import android.content.Context;
 import android.content.SharedPreferences;

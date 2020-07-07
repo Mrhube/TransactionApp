@@ -5,10 +5,9 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.example.transactionapp.FileReadWrite;
-import com.example.transactionapp.JSONConverter;
+import com.example.transactionapp.misc.FileReadWrite;
+import com.example.transactionapp.misc.JSONConverter;
 import com.example.transactionapp.structure.Transaction;
-import com.example.transactionapp.ui.dashboard.DataRow;
 
 import java.util.ArrayList;
 import java.util.List;

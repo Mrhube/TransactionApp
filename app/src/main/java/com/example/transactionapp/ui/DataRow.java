@@ -1,30 +1,42 @@
-package com.example.transactionapp.ui.dashboard;
+package com.example.transactionapp.ui;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class HeaderRow extends TableRow {
+public class DataRow extends TableRow {
 
-    public HeaderRow(Context context) {
+    public int id;
+    Boolean expanded = false;
+
+    public DataRow(Context context, int id, String date, String amount, String category) {
         super(context);
-        this.setBackgroundColor(Color.parseColor("#0079D6"));
+        this.id = id;
+        this.setBackgroundColor(Color.parseColor(getColor()));
         this.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1));
 
-        String text[] = {"Date","Amount","Category"};
+        String text[] = {date,amount,category};
         Float weight[] = {1F,2F,2F};
 
         for (int i = 0; i < 3; i++) {
             TextView view = new TextView(context);
             view.setLayoutParams(new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, weight[i]));
             view.setPadding(10,10,10,10);
-            view.setTypeface(view.getTypeface(), Typeface.BOLD);
-            view.setTextColor(Color.parseColor("#FFFFFF"));
             view.setTextSize(15);
             view.setText(text[i]);
             this.addView(view);
         }
+    }
+
+    public void toggle() {
+        this.expanded = !expanded;
+        this.setBackgroundColor(Color.parseColor(getColor()));
+    }
+
+    private String getColor() {
+        if (expanded) return "#FFFF77";
+        else if (id % 2 == 1) return "#FFFFFF";
+        else return "#DAE8FC";
     }
 }
