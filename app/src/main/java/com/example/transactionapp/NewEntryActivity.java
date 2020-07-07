@@ -104,7 +104,7 @@ public class NewEntryActivity extends AppCompatActivity {
         EditText payeeField = findViewById(R.id.fieldPayee);
         tr.setPayee(payeeField.getText().toString());
         // Description
-        EditText descField = findViewById(R.id.fieldPayee);
+        EditText descField = findViewById(R.id.fieldDescription);
         tr.setDescription(descField.getText().toString());
 
         // Append transaction to existing file
