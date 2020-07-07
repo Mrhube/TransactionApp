@@ -78,6 +78,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fieldCategory" />
 
+    <EditText
+        android:id="@+id/fieldDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/fieldPayee"
+        app:layout_constraintStart_toStartOf="@+id/fieldPayee"
+        app:layout_constraintTop_toBottomOf="@+id/fieldPayee" />
+
     <Button
         android:id="@+id/btnOkay"
         android:layout_width="wrap_content"
@@ -130,6 +141,14 @@
         android:text="Payee"
         app:layout_constraintBottom_toTopOf="@+id/fieldPayee"
         app:layout_constraintStart_toStartOf="@+id/fieldPayee" />
+
+    <TextView
+        android:id="@+id/label6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        app:layout_constraintBottom_toTopOf="@+id/fieldDescription"
+        app:layout_constraintStart_toStartOf="@+id/fieldDescription" />
 
     <TextView
         android:id="@+id/label5"
