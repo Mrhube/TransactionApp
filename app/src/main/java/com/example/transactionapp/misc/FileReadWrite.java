@@ -10,9 +10,18 @@ import java.io.IOException;
 
 public class FileReadWrite {
 
+    /**
+     * saveDirectory is the folder in application-specific memory where data will be written/read
+     * saveFilename is the name of the file containing the data
+     */
     private static String saveDirectory = "data";
     private static String saveFilename = "data.txt";
 
+    /**
+     * Writes a string to the application-specific memory
+     * @param ctx - the application context
+     * @param content - the string to save to memory
+     */
     public static void write(Context ctx, String content) {
         // Create the directory if it doesn't exist
         File dir = new File(ctx.getFilesDir(), saveDirectory);
@@ -26,12 +35,17 @@ public class FileReadWrite {
             writer.write(content);
             writer.flush();
             writer.close();
-        // TODO: add more useful error handling here
+
         } catch (Exception e){
-            e.printStackTrace();
+            // TODO: add more useful error handling here
         }
     }
 
+    /**
+     * Reads a string from the application-specific memory
+     * @param ctx - the application context
+     * @return the string that was previously written to memory
+     */
     public static String read(Context ctx) {
         File file = new File(ctx.getFilesDir(), saveDirectory + "/" + saveFilename);
         // Read the file contents
@@ -44,11 +58,9 @@ public class FileReadWrite {
                 text.append('\n');
             }
             br.close();
-        // TODO: add more useful error handling here
         } catch (IOException e) {
-            e.printStackTrace();
+            // TODO: add more useful error handling here
         }
         return text.toString();
     }
-
 }
