@@ -7,7 +7,7 @@ public class Transaction {
     String description;
     String payee;
     String amount;
-    String date;
+    String date; // Should be formatted YYYY-MM-dd
 
     @JsonSetter("category")
     public void setCategory(String category) {

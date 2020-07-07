@@ -21,29 +21,23 @@ import com.example.transactionapp.ui.HeaderRow;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
 
+        // Get root view
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Populate views
+        final TextView textView = root.findViewById(R.id.text_home);
         ScrollView scrollView = root.findViewById(R.id.home_scrollview);
         TableLayout header = root.findViewById(R.id.table_header);
-
         header.addView(new HeaderRow(getContext()));
-
-
         TransactionTable table = new TransactionTable(getContext(), textView);
-        scrollView.addView(table);
-        table.setData(JSONConverter.JSONToTransactionList(FileReadWrite.read(getContext())));
         table.setId(R.id.new_entry_table);
+        scrollView.addView(table);
+
+        // Populate TransactionTable data
+        table.setData(JSONConverter.JSONToTransactionList(FileReadWrite.read(getContext())));
 
         return root;
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-
     }
 }
