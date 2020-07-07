@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Sends the current list of new entries to the database through the RESTful API, on success the list is cleared
+     */
     private void syncWithDatabase() {
         final Context ctx = getApplicationContext();
         final String json = FileReadWrite.read(ctx);

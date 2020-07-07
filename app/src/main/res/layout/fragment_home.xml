@@ -18,8 +18,9 @@
     <TextView
         android:id="@+id/text_home"
         android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:textSize="20sp"
+        android:layout_height="56dp"
+        android:textSize="15sp"
+        android:textAlignment="viewStart"
         android:background="#EEEEEE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

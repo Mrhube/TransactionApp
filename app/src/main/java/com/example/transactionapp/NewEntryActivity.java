@@ -76,6 +76,9 @@ public class NewEntryActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Populate the Date field with a human-readable string for selected the date
+     */
     private void updateDateField() {
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -83,6 +86,9 @@ public class NewEntryActivity extends AppCompatActivity {
         edittext.setText(sdf.format(myCalendar.getTime()));
     }
 
+    /**
+     * Save off the data in the fields as a new transaction
+     */
     private void addNewTransaction() {
         Transaction tr = new Transaction();
         // Date
